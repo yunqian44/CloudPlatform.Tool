@@ -99,6 +99,10 @@ footer {
     background-color: var(--gray-1);
 }
 
+.text-center {
+    margin-top:50px
+}
+
 .nav-item-icon {
     width: 16px;
     display: inline-block;
