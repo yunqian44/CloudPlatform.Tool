@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - CloudPlatform.Tool.WebApp</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="~/css/base.css" rel="stylesheet" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/CloudPlatform.Tool.WebApp.styles.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="sticky-top d-print-none">
+        <nav id="blog-nav" class="navbar navbar-expand-lg navbar-dark bg-accent1">
+            <div class="container">
+                <div class="animbrand">
+                    <a class="moonglade-logo font-sairas navbar-brand animate" href="/">
+                        Siemens-Pharm
+                    </a>
+                </div>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#blog-navbar-content" aria-controls="blog-navbar-content" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="blog-navbar-content">
+                    <ul class="navbar-nav me-auto">
+                        <!-- System Nav Menu -->
+                        <li id="navbar-dropdown-post" class="nav-item dropdown">
+                            <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown">
+                                <i class="bi-folder2 nav-item-icon"></i>
+                                <strong>@SharedLocalizer["Categories"]</strong>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-page="/Tags" class="nav-link">
+                                <i class="bi-tag nav-item-icon"></i>
+                                <strong>@SharedLocalizer["Tags"]</strong>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a asp-page="/Archive" class="nav-link">
+                                <i class="bi-calendar3 nav-item-icon"></i>
+                                <strong>@SharedLocalizer["Archive"]</strong>
+                            </a>
+                        </li>
+                    </ul>
+                   
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-muted">
+        <div class="container">
+            &copy; 2023 - CloudPlatform.Tool.WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
+        </div>
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

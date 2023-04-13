@@ -1,0 +1,102 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+}
+
+<div class="text-center">
+    <h1 class="display-1">下载 WMS</h1>
+    <h2 class="display-8">Pharm WMS 企业仓库管理系统是一款标准化、智能化过程导向管理的仓库管理软件。</h2>
+
+
+    <div class="container pt-60 pb-60 accordion">
+        <p class="alert alert-info">不确定要下载什么?<a href="/zh-cn/download">参阅实际项目对应的本地的EBR版本</a>。</p>
+
+        <div id="supported-versions-table" class="table-wrap collapse show" style="">
+            <table class="table" aria-labelledby="dotnetcore-version">
+                <thead>
+                    <tr>
+                        <th>版本</th>
+                        <th>发布类型</th>
+                        <th>支持阶段</th>
+                        <th>最新发布</th>
+                        <th>最新发布日期</th>
+                        <th>终止支持</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <a href="/download/wms/shangyao/1.0">上药 WMS</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。" data-bs-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。">
+                                长期支持
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="预览版提供对当前正在开发的功能的早期访问。这些版本通常不支持用于生产。" data-bs-original-title="预览版提供对当前正在开发的功能的早期访问。这些版本通常不支持用于生产。">
+                                预览
+                            </button>
+                        </td>
+                        <td>8.0.0-preview.3</td>
+                        <td>2023年3月14日</td>
+                        <td>
+                        </td>
+                    </tr>
+                    <tr class="table-warning">
+                        <td>
+                            <a href="/download/wms/renfu/1.0">人福 WMS</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="标准期限支持版本的支持期较短(18 个月)。如果要试用最新功能，且较新版本不可用，请使用 STS 版本。" data-bs-original-title="标准期限支持版本的支持期较短(18 个月)。如果要试用最新功能，且较新版本不可用，请使用 STS 版本。">
+                                标准期限支持
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。" data-bs-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。">
+                                活动
+                            </button>
+                        </td>
+                        <td>7.0.5</td>
+                        <td>2023年4月11日</td>
+                        <td>
+                            2024年5月14日
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <a href="/download/wms/rongsheng/1.0">荣升</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。" data-bs-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。">
+                                长期支持
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。" data-bs-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。">
+                                活动
+                            </button>
+                        </td>
+                        <td>6.0.16</td>
+                        <td>2023年4月11日</td>
+                        <td>
+                            2024年11月12日
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="mt-40">希望更好地了解 WMS 版本的支持策略? 请参阅 <a href="/zh-cn/platform/support/policy/dotnet-core#cadence">Azure DevOps 发布节奏</a>。</p>
+    </div>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+}
