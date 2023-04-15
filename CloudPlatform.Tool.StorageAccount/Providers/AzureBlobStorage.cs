@@ -1,4 +1,5 @@
-﻿using Azure.Storage.Blobs;
+﻿using Azure;
+using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.Extensions.Logging;
 
@@ -19,39 +20,6 @@ public class AzureBlobStorage : IBlogStorage
         _blobServiceClient = new (blobConfiguration.ConnectionString);
 
         logger.LogInformation($"Created {nameof(AzureBlobStorage)} for account {_blobServiceClient.AccountName} ");
-    }
-
-    public async Task<string> InsertAsync(string fileName, byte[] imageBytes)
-    {
-        if (string.IsNullOrWhiteSpace(fileName))
-        {
-            throw new ArgumentNullException(nameof(fileName));
-        }
-
-        _logger.LogInformation($"Uploading {fileName} to Azure Blob Storage.");
-
-        var containerClient = _blobServiceClient.GetBlobContainerClient("picturecontainer");
-
-        var blob = containerClient.GetBlobClient(fileName);
-
-        // Why .NET doesn't have MimeMapping.GetMimeMapping()
-        var blobHttpHeader = new BlobHttpHeaders();
-        var extension = Path.GetExtension(blob.Uri.AbsoluteUri);
-        blobHttpHeader.ContentType = extension.ToLower() switch
-        {
-            ".jpg" => "image/jpeg",
-            ".jpeg" => "image/jpeg",
-            ".png" => "image/png",
-            ".gif" => "image/gif",
-            _ => blobHttpHeader.ContentType
-        };
-
-        await using var fileStream = new MemoryStream(imageBytes);
-        var uploadedBlob = await blob.UploadAsync(fileStream, blobHttpHeader);
-
-        _logger.LogInformation($"Uploaded image file '{fileName}' to Azure Blob Storage, ETag '{uploadedBlob.Value.ETag}'. Yeah, the best cloud!");
-
-        return fileName;
     }
 
     public async Task DeleteAsync(string fileName)
@@ -91,5 +59,38 @@ public class AzureBlobStorage : IBlogStorage
         var fileType = extension.Replace(".", string.Empty);
 
         return new BlobInfo(memoryStream, fileType);
+    }
+
+    public async Task<List<StorageContainer>> GetContainerNameList()
+    {
+        var containersList = new List<StorageContainer>();
+        try
+        {
+            
+            // Call the listing operation and enumerate the result segment.
+            var resultSegment =
+                _blobServiceClient.GetBlobContainersAsync(BlobContainerTraits.Metadata, default)
+                .AsPages(default);
+
+            await foreach (Azure.Page<BlobContainerItem> containerPage in resultSegment)
+            {
+                foreach (BlobContainerItem containerItem in containerPage.Values)
+                {
+                    containersList.Add(new StorageContainer
+                    {
+                        Name = containerItem.Name,
+                        PublishType = containerItem.Properties.PublicAccess?.ToString(),
+                        Status=containerItem.IsDeleted.HasValue?"可用":"不可用",
+                        LastModifyTime= containerItem.Properties.LastModified.ToString()
+                    }) ;
+                }
+            }
+        }
+        catch (RequestFailedException e)
+        {
+            _logger.LogWarning($"Blob container not exist.");
+        }
+
+        return containersList;
     }
 }
