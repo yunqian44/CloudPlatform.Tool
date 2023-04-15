@@ -5,11 +5,8 @@ public class AzureBlobConfiguration
 {
     public string ConnectionString { get; }
 
-    public string ContainerName { get; }
-
-    public AzureBlobConfiguration(string connectionString, string containerName)
+    public AzureBlobConfiguration(string connectionString)
     {
         ConnectionString = connectionString;
-        ContainerName = containerName;
     }
 }
