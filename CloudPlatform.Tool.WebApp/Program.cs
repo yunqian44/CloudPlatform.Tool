@@ -25,7 +25,7 @@ void ConfigureServices(IServiceCollection services)
 {
     
     services.AddLocalization(options => options.ResourcesPath = "Resources");
-    
+
     // Add services to the container.
     services.AddRazorPages()
             .AddDataAnnotationsLocalization(options => options.DataAnnotationLocalizerProvider = (_, factory) => factory.Create(typeof(Program)))

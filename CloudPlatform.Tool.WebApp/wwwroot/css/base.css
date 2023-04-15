@@ -27,7 +27,7 @@
     --gray-9: #111;
     --moca-dark-1: #1D2124;
     --moca-dark-2: #343A40;
-    --accent-color1: #2a579a;
+    --accent-color1: #009999;
     --accent-color2: #1a365f;
     --accent-color3: #3e6db5;
 }
@@ -563,6 +563,7 @@ div.animbrand a:hover {
     padding-right: 0;
 }
 
+
 .nav-item-non-margin {
     margin: 0 0;
 }
@@ -604,4 +605,26 @@ div.animbrand a:hover {
     position: fixed;
     bottom: 60px;
     right: 20px;
+}
+
+.parent-nav {
+    font-size:30px;
+    cursor:pointer
+}
+/**箭头图标合起来的样式*/
+/** .parent-nav表示父标签 after表示在此后加入字体图标  */
+.parent-nav:before {
+    content: "\f106"; /** 箭头向上图标*/
+    font-family: FontAwesome;
+}
+
+/**箭头图标展开式时的样式*/
+/** collapsed是bootstrap的属性，表示父标签展开的时候加入的图标 after表示在此后加入字体图标  */
+.parent-nav.collapsed:before {
+    content: "\f107"; /** 箭头向下图标*/
+    font-family: FontAwesome;
+}
+
+.accordion {
+text-align:left !important;
 }
