@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CloudPlatform.Tool.StorageAccount;
+using CloudPlatform.Tool.WebApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CloudPlatform.Tool.WebApp.Pages
@@ -7,14 +9,18 @@ namespace CloudPlatform.Tool.WebApp.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IndexModel(ILogger<IndexModel> logger)
+        public IReadOnlyList<Package> Packages { get; set; }
+
+        private readonly IBlogStorage _blogStorage;
+
+        public IndexModel(IBlogStorage blobStorage)
         {
-            _logger = logger;
+            _blogStorage = blobStorage;
         }
 
-        public void OnGet()
+        public async Task OnGet()
         {
-
+            var imageInfo = await _blogStorage.GetAsync("");
         }
     }
 }
