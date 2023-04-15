@@ -8,7 +8,7 @@ public class AzureBlobStorage : IBlogStorage
 {
     public string Name => nameof(AzureBlobStorage);
 
-    private readonly BlobContainerClient _container;
+    private readonly BlobServiceClient _blobServiceClient;
 
     private readonly ILogger<AzureBlobStorage> _logger;
 
@@ -16,9 +16,9 @@ public class AzureBlobStorage : IBlogStorage
     {
         _logger = logger;
 
-        _container = new(blobConfiguration.ConnectionString, blobConfiguration.ContainerName);
+        _blobServiceClient = new (blobConfiguration.ConnectionString);
 
-        logger.LogInformation($"Created {nameof(AzureBlobStorage)} for account {_container.AccountName} on container {_container.Name}");
+        logger.LogInformation($"Created {nameof(AzureBlobStorage)} for account {_blobServiceClient.AccountName} ");
     }
 
     public async Task<string> InsertAsync(string fileName, byte[] imageBytes)
@@ -30,8 +30,9 @@ public class AzureBlobStorage : IBlogStorage
 
         _logger.LogInformation($"Uploading {fileName} to Azure Blob Storage.");
 
+        var containerClient = _blobServiceClient.GetBlobContainerClient("picturecontainer");
 
-        var blob = _container.GetBlobClient(fileName);
+        var blob = containerClient.GetBlobClient(fileName);
 
         // Why .NET doesn't have MimeMapping.GetMimeMapping()
         var blobHttpHeader = new BlobHttpHeaders();
@@ -55,12 +56,14 @@ public class AzureBlobStorage : IBlogStorage
 
     public async Task DeleteAsync(string fileName)
     {
-        await _container.DeleteBlobIfExistsAsync(fileName);
+        var containerClient = _blobServiceClient.GetBlobContainerClient("picturecontainer");
+        await containerClient.DeleteBlobIfExistsAsync(fileName);
     }
 
     public async Task<BlobInfo> GetAsync(string fileName)
     {
-        var blobClient = _container.GetBlobClient(fileName);
+        var containerClient = _blobServiceClient.GetBlobContainerClient("picturecontainer");
+        var blobClient = containerClient.GetBlobClient(fileName);
         await using var memoryStream = new MemoryStream();
         var extension = Path.GetExtension(fileName);
         if (string.IsNullOrWhiteSpace(extension))
