@@ -13,9 +13,9 @@
         <p class="alert alert-info"><span class="badge badge-dark">🎈</span>不确定要下载什么?<a href="/zh-cn/download">参阅实际项目对应的本地的EBR版本</a>。</p>
         
 
-        @if (Model.Packages.Any())
+        @if (Model.StorageContainers.Any())
         {
-            <partial name="_PackageList" model="Model.Packages" />
+            <partial name="_PackageList" model="Model.StorageContainers" />
         }
         else
         {

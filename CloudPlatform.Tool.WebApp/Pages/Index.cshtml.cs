@@ -9,7 +9,7 @@ namespace CloudPlatform.Tool.WebApp.Pages
     {
         private readonly ILogger<IndexModel> _logger;
 
-        public IReadOnlyList<Package> Packages { get; set; }
+        public IReadOnlyList<StorageContainer> StorageContainers { get; set; }
 
         private readonly IBlogStorage _blogStorage;
 
@@ -20,7 +20,7 @@ namespace CloudPlatform.Tool.WebApp.Pages
 
         public async Task OnGet()
         {
-            var imageInfo = await _blogStorage.GetAsync("");
+            StorageContainers = await _blogStorage.GetContainerNameList();
         }
     }
 }
