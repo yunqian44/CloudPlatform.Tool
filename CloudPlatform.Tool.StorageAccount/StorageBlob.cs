@@ -11,6 +11,8 @@ namespace CloudPlatform.Tool.StorageAccount
         public string Name { get; set; }
         public string ContainerName { get; set; }
 
+        public string Version { get; set; }
+
         public string PublishType { get; set; }
 
         public string Status { get; set; }
