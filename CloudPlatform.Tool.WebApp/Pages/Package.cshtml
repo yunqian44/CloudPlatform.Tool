@@ -1,6 +1,7 @@
 ﻿@page "/package/{containername:regex(^(?!-)([a-zA-Z0-9-]){{1,128}}$)}"
 @model CloudPlatform.Tool.WebApp.Pages.PackageModel
 
+
 @{
     ViewBag.TitlePrefix = null;
     ViewBag.ActionName = "程序包";
@@ -18,9 +19,9 @@
         <p class="alert alert-info"><span class="badge badge-dark">🎈</span>不确定要下载什么?<a href="/zh-cn/download">参阅实际项目对应的本地的EBR版本</a>。</p>
 
 
-        @if (Model.StorageContainers.Any())
+        @if (Model.StorageBlobs.Any())
         {
-            <partial name="_PackageBlobList" model="Model.StorageContainers" />
+            <partial name="_PackageBlobList" model="Model.StorageBlobs" />
         }
         else
         {
@@ -28,75 +29,6 @@
                 @SharedLocalizer["No Posts"]
             </div>
         }
-
-        <div class="download-panel">
-            <div class="parent-nav" data-bs-toggle="collapse" aria-expanded="false" aria-controls="supported-versions-table" data-bs-target="#supported-versions-table">
-                <i class="glyphicon glyphicon-chevron-right"></i>1.0.23
-            </div>
-
-
-            <div id="supported-versions-table" class="table-wrap collapse show">
-                <div class="release">
-                    <a target="_blank" href="https://github.com/dotnet/core/blob/main/release-notes/8.0/preview/8.0.0-preview.3.md">发行说明</a>
-                    <dl class="release-date">
-                        <dt>最新发布日期</dt>
-                        <dd>2023年4月11日</dd>
-                    </dl>
-                </div>
-                <div class="download-wrap">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h2 class="heading mb-2 mr-1">WMS 应用 - 程序包</h2>
-                            <h3 id="WMS-1.0.23">WMS 程序包 1.0.23</h3>
-
-                            <table aria-labelledby="download-release-1.0.25" class="table table-bordered table-sm">
-                                <caption id="download-release-1.0.25" class="sr-only">下载 WMS 程序包 (1.0.23) 版</caption>
-                                <thead>
-                                    <tr>
-                                        <th scope="col">OS</th>
-                                        <th scope="col">二进制文件</th>
-                                        <th scope="col">安装程序</th>
-                                    </tr>
-                                </thead>
-                                <tr>
-                                    <th scope="row">Windows</th>
-                                    <td>
-                                        <a href="https://learn.microsoft.com/dotnet/core/install/windows#install-with-windows-package-manager-winget" target="_blank">Release</a>
-                                    </td>
-                                    <td></td>
-                                </tr>
-                            </table>
-
-                            <dl>
-                                <dt>版本号</dt>
-                                <dd>1.0.23</dd>
-
-                                <dt class="mt-10">Visual Studio 支持</dt>
-                                <dd class="mb-0">Visual Studio 2019</dd>
-
-
-                                <dt class="mt-10">包含的运行时</dt>
-                                <dd class="mb-0">.NET Framework 4.5.2</dd>
-                                <dd class="mb-0">.NET Framework 4.6</dd>
-
-                                <dt class="mt-10">&#x8BED;&#x8A00;&#x652F;&#x6301;</dt>
-                                <dd class="mb-0">C# 6.0</dd>
-                            </dl>
-
-                        </div>
-                        <div class="col-md-6">
-                            <h2 class="heading mb-2 mr-1">WMS 应用 - 运行时</h2><span data-toggle="tooltip" aria-label="&#x662F;&#x5426;&#x8981;&#x8FD0;&#x884C;&#x5E94;&#x7528;? &#x8FD0;&#x884C;&#x65F6;&#x5305;&#x62EC;&#x8FD0;&#x884C; .NET &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6240;&#x9700;&#x7684;&#x6240;&#x6709;&#x5185;&#x5BB9;&#x3002;&#x8FD0;&#x884C;&#x65F6;&#x4E5F;&#x5305;&#x542B;&#x5728; SDK &#x4E2D;&#x3002;" class="tooltip-info" role="tooltip" tabindex="0" title="&#x662F;&#x5426;&#x8981;&#x8FD0;&#x884C;&#x5E94;&#x7528;? &#x8FD0;&#x884C;&#x65F6;&#x5305;&#x62EC;&#x8FD0;&#x884C; .NET &#x5E94;&#x7528;&#x7A0B;&#x5E8F;&#x6240;&#x9700;&#x7684;&#x6240;&#x6709;&#x5185;&#x5BB9;&#x3002;&#x8FD0;&#x884C;&#x65F6;&#x4E5F;&#x5305;&#x542B;&#x5728; SDK &#x4E2D;&#x3002;"><svg width="16" height="16" version="2.0" class="icon-svg"><use href="#info-regular" /></svg><span class='sr-only'>Tooltip: 是否要运行应用? 运行时包括运行 .NET 应用程序所需的所有内容。运行时也包含在 SDK 中。</span></span>
-                            <h3 id="runtime-aspnetcore-8.0.0-preview.3">WMS 应用 运行时 6.2.3</h3>
-                            <p>EBR 6.2.3 核心运行时使你能够运行现有的 WMS 应用程序。<strong>在 Windows 上，我们建议安装托管捆绑包，其中包括 .NET 运行时和 IIS 支持。</strong></p>
-                            <dl>
-                                <dt>版本号</dt>
-                                <dd>6.2.3</dd>
-                            </dl>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 </div>
 

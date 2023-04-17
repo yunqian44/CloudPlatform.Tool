@@ -20,7 +20,7 @@ namespace CloudPlatform.Tool.WebApp.Pages
 
         public async Task OnGet()
         {
-            StorageContainers = await _blogStorage.GetContainerNameList();
+            StorageContainers = await _blogStorage.GetContainerNameListAsync();
         }
     }
 }
