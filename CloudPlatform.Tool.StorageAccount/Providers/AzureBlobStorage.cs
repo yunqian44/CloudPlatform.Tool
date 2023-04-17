@@ -17,7 +17,7 @@ public class AzureBlobStorage : IBlogStorage
     {
         _logger = logger;
 
-        _blobServiceClient = new (blobConfiguration.ConnectionString);
+        _blobServiceClient = new(blobConfiguration.ConnectionString);
 
         logger.LogInformation($"Created {nameof(AzureBlobStorage)} for account {_blobServiceClient.AccountName} ");
     }
@@ -28,48 +28,44 @@ public class AzureBlobStorage : IBlogStorage
         await containerClient.DeleteBlobIfExistsAsync(fileName);
     }
 
-    public async Task<BlobInfo> GetAsync(string fileName)
+    public async Task<List<StorageBlob>> GetBlobListAsync(string containerName)
     {
-        var containerClient = _blobServiceClient.GetBlobContainerClient("picturecontainer");
-        var blobClient = containerClient.GetBlobClient(fileName);
-        await using var memoryStream = new MemoryStream();
-        var extension = Path.GetExtension(fileName);
-        if (string.IsNullOrWhiteSpace(extension))
+        var blobList = new List<StorageBlob>();
+        try
         {
-            throw new ArgumentException("File extension is empty");
+            var containerClient = _blobServiceClient.GetBlobContainerClient(containerName);
+            var blobs = containerClient.GetBlobsAsync();
+
+            await foreach (var itemBlob in blobs)
+            {
+                blobList.Add(new StorageBlob
+                {
+                    Name = itemBlob.Name.Substring(0, itemBlob.Name.Length - 4),
+                    Version = itemBlob.Name.Substring(0, itemBlob.Name.Length - 4).Replace('.','-'),
+                    ContainerName = containerName,
+                    Status = itemBlob.Deleted ? "不可用" : "可用",
+                    LastModifyTime = itemBlob.Properties.LastModified.HasValue ? itemBlob.Properties.LastModified.Value.ToString():"" 
+                }) ;
+            }
+        }
+        catch (RequestFailedException e)
+        {
+            _logger.LogWarning($"Blob container not exist.");
         }
 
-        var existsTask = blobClient.ExistsAsync();
-        var downloadTask = blobClient.DownloadToAsync(memoryStream);
 
-        var exists = await existsTask;
-        if (!exists)
-        {
-            _logger.LogWarning($"Blob {fileName} not exist.");
-
-            // Can not throw FileNotFoundException,
-            // because hackers may request a large number of 404 images
-            // to flood .NET runtime with exceptions and take out the server
-            return null;
-        }
-
-        await downloadTask;
-        var arr = memoryStream.ToArray();
-
-        var fileType = extension.Replace(".", string.Empty);
-
-        return new BlobInfo(memoryStream, fileType);
+        return blobList;
     }
 
-    public async Task<List<StorageContainer>> GetContainerNameList()
+    public async Task<List<StorageContainer>> GetContainerNameListAsync()
     {
         var containersList = new List<StorageContainer>();
         try
         {
-            
+
             // Call the listing operation and enumerate the result segment.
             var resultSegment =
-                _blobServiceClient.GetBlobContainersAsync(BlobContainerTraits.Metadata, default)
+                _blobServiceClient.GetBlobContainersAsync()
                 .AsPages(default);
 
             await foreach (Azure.Page<BlobContainerItem> containerPage in resultSegment)
@@ -80,9 +76,9 @@ public class AzureBlobStorage : IBlogStorage
                     {
                         Name = containerItem.Name,
                         PublishType = containerItem.Properties.PublicAccess?.ToString(),
-                        Status=containerItem.IsDeleted.HasValue?"可用":"不可用",
-                        LastModifyTime= containerItem.Properties.LastModified.ToString()
-                    }) ;
+                        Status = containerItem.IsDeleted == null ? "可用" : (containerItem.IsDeleted.Value ? "可用" : "不可用"),
+                        LastModifyTime = containerItem.Properties.LastModified.ToString()
+                    });
                 }
             }
         }

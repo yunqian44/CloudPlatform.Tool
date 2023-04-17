@@ -120,6 +120,12 @@
   <data name="About" xml:space="preserve">
     <value>关于</value>
   </data>
+  <data name="Function" xml:space="preserve">
+    <value>功能</value>
+  </data>
+  <data name="shangyao-wms" xml:space="preserve">
+    <value>上药 WMS</value>
+  </data>
   <data name="Tags" xml:space="preserve">
     <value>标签</value>
   </data>

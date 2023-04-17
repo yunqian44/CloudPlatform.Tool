@@ -1,0 +1,42 @@
+﻿@page "/package/{containername:regex(^(?!-)([a-zA-Z0-9-]){{1,128}}$)}"
+@model CloudPlatform.Tool.WebApp.Pages.PackageModel
+
+
+@{
+    ViewBag.TitlePrefix = null;
+    ViewBag.ActionName = "程序包";
+}
+
+<div class="text-center">
+    <div class="jumbotron">
+        <div class="container" id="mainContent" tabindex="-1" role="main">
+
+            <h1>下载 @SharedLocalizer["shangyao-wms"]</h1>
+
+        </div>
+    </div>
+    <div class="container accordion accordion-downloads pt-60 pb-60">
+        <p class="alert alert-info"><span class="badge badge-dark">🎈</span>不确定要下载什么?<a href="/zh-cn/download">参阅实际项目对应的本地的EBR版本</a>。</p>
+
+
+        @if (Model.StorageBlobs.Any())
+        {
+            <partial name="_PackageBlobList" model="Model.StorageBlobs" />
+        }
+        else
+        {
+            <div class="alert alert-info">
+                @SharedLocalizer["No Posts"]
+            </div>
+        }
+    </div>
+</div>
+
+
+@section scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+                }
