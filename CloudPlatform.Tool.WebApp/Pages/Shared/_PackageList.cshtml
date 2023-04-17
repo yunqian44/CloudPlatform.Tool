@@ -23,72 +23,35 @@ else
                     <th>支持阶段</th>
                     <th>最新发布</th>
                     <th>最新发布日期</th>
-                    <th>终止支持</th>
+                    <th>存储类型</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
-                    <td>
-                        <a href="/download/wms/shangyao/1.0">上药 WMS</a>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。" data-bs-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。">
-                            长期支持<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="预览版提供对当前正在开发的功能的早期访问。这些版本通常不支持用于生产。" data-bs-original-title="预览版提供对当前正在开发的功能的早期访问。这些版本通常不支持用于生产。">
-                            预览<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>8.0.0-preview.3</td>
-                    <td>2023年3月14日</td>
-                    <td>
-                    </td>
-                </tr>
-                <tr class="table-warning">
-                    <td>
-                        <a href="/download/wms/renfu/1.0">人福 WMS</a>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="标准期限支持版本的支持期较短(18 个月)。如果要试用最新功能，且较新版本不可用，请使用 STS 版本。" data-bs-original-title="标准期限支持版本的支持期较短(18 个月)。如果要试用最新功能，且较新版本不可用，请使用 STS 版本。">
-                            标准期限支持<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。" data-bs-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。">
-                            活动<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>7.0.5</td>
-                    <td>2023年4月11日</td>
-                    <td>
-                        2024年5月14日
-                    </td>
-                </tr>
 
-                foreach (var item in Model)
+
+                @foreach (var item in Model)
                 {
-                <tr>
-                    <td>
-                        <a href="/download/wms/rongsheng/1.0">荣升</a>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。" data-bs-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。">
-                            长期支持<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>
-                        <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。" data-bs-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。">
-                            活动<span class="badge badge-dark">①</span>
-                        </button>
-                    </td>
-                    <td>6.0.16</td>
-                    <td>2023年4月11日</td>
-                    <td>
-                        2024年11月12日
-                    </td>
-                </tr>
+                    <tr>
+                        <td>
+                            <a asp-page="/Package" 
+                            asp-route-containername="@item.Name">@item.Name</a>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。" data-bs-original-title="长期支持(LTS)版本具有较长的支持期(3 年)。如果需要在同一版本的 .NET 上保持更长时间的支持，请使用 LTS。">
+                                长期支持<span class="badge badge-dark">①</span>
+                            </button>
+                        </td>
+                        <td>
+                            <button type="button" class="btn btn btn-info btn-sm" data-toggle="tooltip" data-placement="top" title="" role="tooltip" tabindex="0" data-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。" data-bs-original-title="在活动支持期间，.NET 版本会进行更新，以改进功能并缓解安全漏洞。">
+                                活动<span class="badge badge-dark">①</span>
+                            </button>
+                        </td>
+                        <td>@item.Status</td>
+                        <td>@item.LastModifyTime</td>
+                        <td>
+                            @item.PublishType
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
