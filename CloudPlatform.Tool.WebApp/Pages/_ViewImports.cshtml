@@ -3,7 +3,10 @@
 @using Microsoft.Extensions.Localization
 
 @using CloudPlatform.Tool.WebApp
+@using CloudPlatform.Tool.Configuration
+@using CloudPlatform.Tool.Common
 @namespace CloudPlatform.Tool.WebApp.Pages
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
+@inject IBlobConfig BlobConfig
 @inject IStringLocalizer<Program> SharedLocalizer
