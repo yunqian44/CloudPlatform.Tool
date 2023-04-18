@@ -17,7 +17,10 @@ public static class ServiceCollectionExtensions
         this IServiceCollection services, IConfiguration configuration, Action<BlobStorageOptions> options)
     {
         options(Options);
-        var _conn = configuration["AzureBlobStorageConnectionString"];
+
+        var _conn = Environment.GetEnvironmentVariable("AzureBlobStorageConnectionString");
+
+        //var _conn = configuration["AzureBlobStorageConnectionString"];
 
         if (string.IsNullOrWhiteSpace(_conn?.ToLower()))
         {
