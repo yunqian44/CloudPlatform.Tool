@@ -1,17 +1,11 @@
 ﻿@page "/package/{containername:regex(^(?!-)([a-zA-Z0-9-]){{1,128}}$)}"
 @model CloudPlatform.Tool.WebApp.Pages.PackageModel
 
-
-@{
-    ViewBag.TitlePrefix = null;
-    ViewBag.ActionName = "程序包";
-}
-
 <div class="text-center">
     <div class="jumbotron">
         <div class="container" id="mainContent" tabindex="-1" role="main">
 
-            <h1>下载 @SharedLocalizer["shangyao-wms"]</h1>
+            <h1>下载 @SharedLocalizer[Model.ContainerName]</h1>
 
         </div>
     </div>
@@ -26,7 +20,7 @@
         else
         {
             <div class="alert alert-info">
-                @SharedLocalizer["No Posts"]
+                @SharedLocalizer["No Data"]
             </div>
         }
     </div>
