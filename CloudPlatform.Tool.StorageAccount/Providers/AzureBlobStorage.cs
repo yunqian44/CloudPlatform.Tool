@@ -44,6 +44,7 @@ public class AzureBlobStorage : IBlogStorage
                     Version = itemBlob.Name.Substring(0, itemBlob.Name.Length - 4).Replace('.','-'),
                     ContainerName = containerName,
                     Status = itemBlob.Deleted ? "不可用" : "可用",
+                    Url= string.Format("{0}{1}/{2}", _blobServiceClient.Uri, containerName, itemBlob.Name),
                     LastModifyTime = itemBlob.Properties.LastModified.HasValue ? itemBlob.Properties.LastModified.Value.ToString():"" 
                 }) ;
             }
