@@ -1,5 +1,8 @@
+using CloudPlatform.Tool.Configuration;
 using CloudPlatform.Tool.StorageAccount;
-using Microsoft.Extensions.Configuration;
+using CloudPlatform.Tool.WebApp;
+using System;
+using System.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,12 +24,14 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 
+await app.InitStartUp(builder.Configuration);
+
 app.Run();
 
 
 void ConfigureServices(IServiceCollection services)
 {
-
+    AppDomain.CurrentDomain.Load("CloudPlatform.Tool.Configuration");
     services.AddLocalization(options => options.ResourcesPath = "Resources");
 
     // Add services to the container.
@@ -38,5 +43,9 @@ void ConfigureServices(IServiceCollection services)
             });
 
 
+    services.AddBlobConfig();
+
+
     services.AddBlobStorage(builder.Configuration, options => options.ContentRootPath = builder.Environment.ContentRootPath);
 }
+

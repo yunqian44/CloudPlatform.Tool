@@ -1,0 +1,16 @@
+﻿@using Microsoft.AspNetCore.Builder
+
+<footer class="bg-accent1 pt-4 pb-4 d-print-none border-top footer">
+    <div class="container">
+        <div class="row">
+            <section id="footer-copyright" class="col-auto">
+                <div>
+                    @Html.Raw(string.Format("{0} {1}",Helper.FormatCopyright2Html(BlobConfig.GeneralSettings.Copyright),Helper.FormatCopyright2Html(BlobConfig.GeneralSettings.OwnerName)))
+                </div>
+                <small>
+                    Powered by <a href="/" target="_blank">De-Pharm</a> @Helper.AppVersion
+                </small>
+            </section>
+        </div>
+    </div>
+</footer>
