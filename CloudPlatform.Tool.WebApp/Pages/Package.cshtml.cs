@@ -13,15 +13,18 @@ namespace CloudPlatform.Tool.WebApp.Pages
 
         private readonly IBlogStorage _blogStorage;
 
+        public string ContainerName { get; set; }
+
         public PackageModel(IBlogStorage blobStorage)
         {
             _blogStorage = blobStorage;
         }
 
-        public async Task<IActionResult> OnGetAsync(string containerName)
+        public async Task OnGetAsync(string containerName)
         {
+            ContainerName = containerName;
             StorageBlobs = await _blogStorage.GetBlobListAsync(containerName);
-            return Page();
+            //return Page();
         }
     }
 }
