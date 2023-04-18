@@ -7,6 +7,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CloudPlatform.Tool.Common\CloudPlatform.Tool.Common.csproj" />
+    <ProjectReference Include="..\CloudPlatform.Tool.Configuration\CloudPlatform.Tool.Configuration.csproj" />
     <ProjectReference Include="..\CloudPlatform.Tool.StorageAccount\CloudPlatform.Tool.StorageAccount.csproj" />
   </ItemGroup>
 
