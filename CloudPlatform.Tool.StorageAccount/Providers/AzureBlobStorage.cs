@@ -55,7 +55,7 @@ public class AzureBlobStorage : IBlogStorage
         }
 
 
-        return await Task.FromResult(blobList);
+        return await Task.FromResult(blobList.OrderByDescending(u=>u.Version).ToList());
     }
 
     public async Task<List<StorageContainer>> GetContainerNameListAsync()
