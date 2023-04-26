@@ -55,7 +55,7 @@ public class AzureBlobStorage : IBlogStorage
         }
 
 
-        return blobList;
+        return await Task.FromResult(blobList.OrderByDescending(u=>u.Version).ToList());
     }
 
     public async Task<List<StorageContainer>> GetContainerNameListAsync()
@@ -63,7 +63,6 @@ public class AzureBlobStorage : IBlogStorage
         var containersList = new List<StorageContainer>();
         try
         {
-
             // Call the listing operation and enumerate the result segment.
             var resultSegment =
                 _blobServiceClient.GetBlobContainersAsync()
@@ -88,6 +87,6 @@ public class AzureBlobStorage : IBlogStorage
             _logger.LogWarning($"Blob container not exist.");
         }
 
-        return containersList;
+        return await Task.FromResult(containersList);
     }
 }
